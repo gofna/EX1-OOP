@@ -1,9 +1,10 @@
-package myMath;
+package Ex1;
 
 import java.util.Iterator;
 
+
 /**
- * This interface represents a general Polynom: f(x) = a_1X^b_1 + a_2X^b_2 ... a_nXb_n,
+ * This interface represents a general Polynom: f(x) = a_1X^b_1 + a_2*X^b_2 ... a_n*Xb_n,
  * where: a_1, a_2 ... a_n are real numbers and b_1<b_2..<b_n are none negative integers (naturals)
  * For formal definitions see: https://en.wikipedia.org/wiki/Polynomial
  * 
@@ -15,7 +16,7 @@ import java.util.Iterator;
  * 
  * 2. Math:
  * 2.1 void multiply(Monom m) // multiply this Polygon by Monom m
- * 2.2 void add(Polygon p) // add p to this Polynom
+ * 2.2 void add(Polygon p) // add p to this Polynon
  * 2.3 void subtract(Polygon p) // subtract p from this Polygon
  * 2.4 void multiply(Polygon p) // multiply this Polygon by p
  * 
@@ -64,10 +65,10 @@ public interface Polynom_able extends cont_function{
 	 * @param p1
 	 * @return true iff this polynom represents the same function as p1
 	 */
-	public boolean equals (Polynom_able p1);
+	public boolean equals (Object p1);
 	/**
 	 * Test if this is the Zero Polynom
-	 * @return true if it's the zero Polynom
+	 * @return
 	 */
 	public boolean isZero();
 	
@@ -78,11 +79,12 @@ public interface Polynom_able extends cont_function{
 	public Polynom_able copy();
 	/**
 	 * Compute a new Polynom which is the derivative of this Polynom
-	 * @return 
+	 * @return
 	 */
 	public Polynom_able derivative();
 	/**
 	 * @return an Iterator (of Monoms) over this Polynom
+	 * @return
 	 */
 	public Iterator<Monom> iteretor();
 }

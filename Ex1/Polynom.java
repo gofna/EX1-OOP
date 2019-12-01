@@ -1,9 +1,9 @@
-package myMath;
+package Ex1;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
-import myMath.Monom;
+
 
 /**
  * This class represents a Polynom used ArrayList with add, multiply
@@ -42,7 +42,12 @@ public class Polynom implements Polynom_able {
 		}
 
 	}
-
+	
+	public function initFromString(String s) {
+		function m = new Polynom(s);
+		return m;
+	}
+	
 	private void sort(ArrayList<Monom> arr) { // use the Monom_comperator to sort the polynom by the power
 		Monom_Comperator x = new Monom_Comperator();
 		arr.sort(x);
@@ -162,6 +167,7 @@ public class Polynom implements Polynom_able {
 		}
 
 	}
+	
 
 	/**
 	 * Test if this Polynom is logically equals to p1.
@@ -171,14 +177,15 @@ public class Polynom implements Polynom_able {
 	 * 
 	 */
 	@Override
-	public boolean equals(Polynom_able p1) {
-		Iterator<Monom> it = p1.iteretor();
+	public boolean equals (Object p1) {
+		if(p1 instanceof Polynom) {
+		Iterator<Monom> it = ((Polynom) p1).iteretor();
 		int count = 0;
 		while (it.hasNext()) {
 			it.next();
 			count++;
 		}
-		Iterator<Monom> it2 = p1.iteretor();
+		Iterator<Monom> it2 = ((Polynom) p1).iteretor();
 		if (count != this.arrayList.size()) { // check if the size is the same
 			return false;
 		} else {
@@ -189,6 +196,8 @@ public class Polynom implements Polynom_able {
 			}
 		}
 		return true;
+		}
+		else {return false;}
 	}
 
 	/**
@@ -259,6 +268,10 @@ public class Polynom implements Polynom_able {
 		}
 		return po;
 	}
+//	public function copy1() { // clone
+//		function m = new Polynom(this.toString());
+//		return m;
+//	}
 
 	/**
 	 * Compute a new Polynom which is the derivative of this Polynom

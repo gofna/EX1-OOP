@@ -1,10 +1,11 @@
 
-package myMath;
+package Ex1;
 
 import java.util.Comparator;
-import java.util.concurrent.ExecutionException;
 
-import javax.management.RuntimeErrorException;
+
+
+
 
 /**
  * This class represents a simple "Monom" of shape ax^b, where a is a real
@@ -43,6 +44,16 @@ public class Monom implements function {
 	 */
 	public Monom(Monom ot) {
 		this(ot.get_coefficient(), ot.get_power());
+	}
+	
+	public function copy() { // clone
+		function m = new Monom(this);
+		return m;
+	}
+	
+	public function initFromString(String s){
+		function m = new Monom(s);
+		return m;
 	}
 
 	/**
@@ -247,14 +258,18 @@ public class Monom implements function {
 	 * @return true if the the monoms is Logically identical
 	 */
 
-	public boolean equals(Monom m) {
-		if (Math.abs(this.get_coefficient() - m.get_coefficient()) < EPSILON && this.get_power() == m.get_power()) {
-			return true;
-		} else if (this.get_coefficient() == 0 && m.get_coefficient() == 0) {
-			return true;
+	public boolean equals(Object obj) {
+		if(obj instanceof Monom) { //if the object we get is a type of Monom and then check equals 
+			if (Math.abs(this.get_coefficient() - ((Monom) obj).get_coefficient()) < EPSILON &&
+				this.get_power() == ((Monom) obj).get_power()) {
+				return true;
+			} else if (this.get_coefficient() == 0 && ((Monom) obj).get_coefficient() == 0) {
+				return true;
+			}
+			return false;
 		}
-
-		return false;
+		else {return false;}
+		
 	}
 
 	@Override
