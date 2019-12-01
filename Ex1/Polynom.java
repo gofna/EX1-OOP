@@ -115,7 +115,7 @@ public class Polynom implements Polynom_able {
 	@Override
 	public void substract(Polynom_able p1) { // copy the Polynom we want to add to new Polynom and
 		Polynom_able p2 = new Polynom(); // we multiply by -1 and then we use the function add Polynom
-		p2 = p1.copy(); // delete the new Polynom and multiply by -1 again !!!!!!!!!!!!!!!!!!!!!!!!!!
+		p2 = (Polynom_able) p1.copy(); // delete the new Polynom and multiply by -1 again !!!!!!!!!!!!!!!!!!!!!!!!!!
 		p2.multiply(Monom.MINUS1);
 		this.add(p2);
 
@@ -132,12 +132,12 @@ public class Polynom implements Polynom_able {
 		Polynom_able res = new Polynom();
 		Polynom_able temp = new Polynom();
 		Iterator<Monom> it = p1.iteretor();
-		temp = this.copy();
+		temp = (Polynom_able) this.copy();
 			while (it.hasNext()) {
 				temp.multiply(it.next());
 				res.add(temp);
 			temp = new Polynom("");
-			temp = this.copy();
+			temp = (Polynom_able) this.copy();
 			}
 		
 		if (p1.isZero()) { // if the Polynom we want to multiply is 0 we clear all the Polynom and add 0
@@ -259,19 +259,20 @@ public class Polynom implements Polynom_able {
 	 * 
 	 */
 	@Override
-	public Polynom_able copy() { // creat a new Polynom and use add function to the new Polynom
+	public function copy() { // creat a new Polynom and use add function to the new Polynom
 		Polynom_able po = new Polynom();
 		Iterator<Monom> it = this.iteretor();
 		while (it.hasNext()) { // deep copy over one by one
 			Monom m = new Monom(it.next());
 			po.add(m);
 		}
-		return po;
+		return (function)(po);
 	}
-//	public function copy1() { // clone
-//		function m = new Polynom(this.toString());
-//		return m;
-//	}
+	
+	public function copy1() { // clone
+		function m = new Polynom(this.toString());
+		return m;
+	}
 
 	/**
 	 * Compute a new Polynom which is the derivative of this Polynom
