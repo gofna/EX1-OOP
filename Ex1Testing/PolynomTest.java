@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import Ex1.Monom;
 import Ex1.Polynom;
-import Ex1.Polynom_able;
 import Ex1.function;
 
 class PolynomTest {
@@ -30,7 +29,7 @@ class PolynomTest {
 	}
 	
 	@Test
-	void testAdd() {
+	void testAddMonom() {
 		Polynom p1 = new Polynom();
 		String monoms[] =	{"3","3x","2x","x^7"}; 
 		for (int i = 0; i < monoms.length; i++) {
@@ -39,6 +38,15 @@ class PolynomTest {
 		}
 		Polynom expected = new Polynom("3+3x+2x+x^7");
 		assertEquals(expected, p1);
+	}
+	
+	@Test
+	void testAddPolynom() {
+		Polynom p1 = new Polynom("2x+2x^3-x^2-10");
+		Polynom p2 = new Polynom("5x+5+x^2");
+		Polynom expected = new Polynom("7x+2x^3-5");
+		p1.add(p2);
+		assertEquals(expected,p1);
 	}
 	
 	@Test
@@ -63,7 +71,32 @@ class PolynomTest {
 	void testCopy() {
 		Polynom p1 = new Polynom("2+3x+5x^3-x^2");
 		function p2 = p1.copy();
-		assertTrue(p1.equals(p2), "check the copy in the polynom class" );
-		
+		assertTrue(p1.equals(p2), "check the copy in the polynom class" );	
 	}
+	
+	@Test
+	void testArea() {
+		Polynom p1 = new Polynom("1.7x^2+1.7x-2.0");
+		double actual = p1.area(1,2, Monom.EPSILON);
+		double expected = 4.516666328817058;
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	void testRoot() {
+		Polynom p1 = new Polynom("1.7x^2+1.7x-2.0");
+		double actual = p1.root(0,2 ,Monom.EPSILON);
+		double expected = 0.6943494379520416;
+		assertEquals(expected, actual);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

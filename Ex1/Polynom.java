@@ -51,7 +51,6 @@ public class Polynom implements Polynom_able {
 	private void sort(ArrayList<Monom> arr) { // use the Monom_comperator to sort the polynom by the power
 		Monom_Comperator x = new Monom_Comperator();
 		arr.sort(x);
-
 	}
 
 	/**
@@ -84,7 +83,19 @@ public class Polynom implements Polynom_able {
 		while (it.hasNext()) {
 			this.add(it.next());
 		}
-
+		//sort
+		resetZero(this);
+		
+	}
+	
+	private void resetZero(Polynom_able p) { //disapear the zero
+		Iterator<Monom> it = p.iteretor();
+		while(it.hasNext()) {
+			if(it.next().equals(Monom.ZERO)) {
+				it.remove();
+			}
+		}
+		 
 	}
 
 	/**
@@ -360,5 +371,4 @@ public class Polynom implements Polynom_able {
 		}
 		return ans;
 	}
-
 }
