@@ -280,7 +280,7 @@ public class Polynom implements Polynom_able {
 		return (function)(po);
 	}
 	
-	public function copy1() { // clone
+	public function copy2() { // clone
 		function m = new Polynom(this.toString());
 		return m;
 	}

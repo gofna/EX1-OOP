@@ -14,7 +14,7 @@ class PolynomTest {
 	
 	@Test
 	void DerivativeTest() {
-	Polynom p1 = new Polynom("2x+2x^2");
+	Polynom p1 = new Polynom("2x+2x^2+7");
 	Polynom expected = new Polynom("2+4x");
 	assertEquals(expected, p1.derivative());
 	}
@@ -24,8 +24,11 @@ class PolynomTest {
 		Polynom p1 = new Polynom("0");
 		assertTrue("check if the polynom is zero",p1.isZero());
 
-		Polynom p2 = new Polynom("5x");
-		assertFalse("check if the polynom is not zero",p2.isZero());		
+		Polynom p2 = new Polynom("5x-5x");
+		assertTrue("check if the polynom is zero",p2.isZero());	
+		
+		Polynom p3 = new Polynom("5x^2");
+		assertFalse("check if the polynom is not zero",p3.isZero());	
 	}
 	
 	@Test
@@ -36,7 +39,7 @@ class PolynomTest {
 			Monom m = new Monom(monoms[i]);
 			p1.add(m);
 		}
-		Polynom expected = new Polynom("3+3x+2x+x^7");
+		Polynom expected = new Polynom("3+5x+x^7");
 		assertEquals(expected, p1);
 	}
 	
@@ -79,7 +82,7 @@ class PolynomTest {
 		Polynom p1 = new Polynom("1.7x^2+1.7x-2.0");
 		double actual = p1.area(1,2, Monom.EPSILON);
 		double expected = 4.516666328817058;
-		assertEquals(expected, actual);
+		assertEquals(expected, actual, "test the area function in polynom");
 	}
 	
 	@Test
