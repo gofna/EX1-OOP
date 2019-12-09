@@ -13,7 +13,7 @@ public interface functions extends Collection<function>{
 	 * @throws IOException if the file does not exists of unreadable (wrong format)
 	 */
 	public void initFromFile(String file) throws IOException;
-/**
+/**	
  * 
  * @param file - the file name
  * @throws IOException if the file is not writable

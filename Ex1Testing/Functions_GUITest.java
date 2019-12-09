@@ -1,5 +1,7 @@
 package Ex1Testing;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +31,9 @@ class Functions_GUITest {
 		Range rx = new Range(-10,10);
 		Range ry = new Range(-5,15);
 		data.drawFunctions(w,h,rx,ry,res);
+		
+		
+		
 	}
 	private Functions_GUI _data=null;
 //	@BeforeAll
