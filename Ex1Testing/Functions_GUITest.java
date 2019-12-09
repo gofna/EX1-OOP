@@ -68,7 +68,7 @@ class Functions_GUITest {
 
 	@Test
 	void testDrawFunctionsIntIntRangeRangeInt() {
-		_data.drawFunctions();
+		//_data.drawFunctions();
 		//fail("Not yet implemented");
 	}
 	public static Functions_GUI FunctionsFactory() {

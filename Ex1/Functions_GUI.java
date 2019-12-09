@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-
 public class Functions_GUI implements functions {
 	public LinkedList<function> list = new LinkedList<function>();
 
@@ -127,65 +126,57 @@ public class Functions_GUI implements functions {
 	}
 
 	@Override
-	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
-		// the function y = sin(4x), sampled at n+1 points
-		// between x = 0 and x = pi
-		
+	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {		
+		StdDraw.setCanvasSize(width, height);
 		double[] x = new double[resolution + 1];
 		double[] y = new double[resolution + 1];
+		// rescale the coordinate system
+		StdDraw.setXscale(rx.get_min(), rx.get_max());
+		StdDraw.setYscale(ry.get_min(), ry.get_max());
+
+		//////// vertical lines
+		int diff = 0;
+		if (rx.get_max() / 10 < 10) {
+			diff = 1;
+		} else {
+			diff = (int) rx.get_max() / 10;
+		}
+		StdDraw.setPenColor(Color.LIGHT_GRAY);
+		for (int i = (int) rx.get_min(); i <= rx.get_max(); i = i + diff) {
+			StdDraw.line(i, ry.get_min(), i, ry.get_max());
+		}
+
+		//////// horizontal lines
+		int diff2 = 0;
+		if ((ry.get_max() - ry.get_min()) / 10 < 10) {
+			diff2 = 1;
+		} else {
+			diff2 = (int) (ry.get_max() - ry.get_min()) / 10;
+		}
+		for (double i = ry.get_min(); i <= ry.get_max(); i = i + diff2) {
+			StdDraw.line(rx.get_min(), i, rx.get_max(), i);
+		}
+
+		//////// x axis
+		StdDraw.setPenColor(Color.BLACK);
+		StdDraw.setPenRadius(0.005);
+		StdDraw.line(rx.get_min(), 0, rx.get_max(), 0);
+		StdDraw.setFont(new Font("TimesRoman", Font.BOLD, 12));
+		for (int i = (int) rx.get_min(); i <= rx.get_max(); i = i + diff) {
+			StdDraw.text(i, 0 - 0.3, Integer.toString((int) (i)));
+		}
+
+		//////// y axis
+		StdDraw.line(0, ry.get_min(), 0, ry.get_max());
+		for (int i = (int) ry.get_min(); i <= ry.get_max(); i = i + diff2) {
+			StdDraw.text(0 - 0.3, i, Integer.toString((int) (i)));
+		}
+
 		for (int j = 0; j < list.size(); j++) {
-			for (int i = 0; i <= resolution ; i++) {
-				x[i] = width*(i-(rx.get_max()-rx.get_min()))/resolution;
+			for (int i = 0; i <= resolution; i++) {
+				x[i] = rx.get_min() + i * ((rx.get_max() - rx.get_min()) / resolution);
 				y[i] = this.list.get(j).f(x[i]);
 			}
-			
-			// rescale the coordinate system
-			StdDraw.setXscale(0, width); // width
-			StdDraw.setYscale(0, height); // height
-			
-		}
-			////////vertical lines
-			int diff = 0;
-			if (rx.get_max()/10 < 10) {
-				 diff = 1;
-			}
-			else {
-				diff = (int)rx.get_max()/10; 
-			}
-			StdDraw.setPenColor(Color.LIGHT_GRAY);
-			for (int i = 0; i <= width; i=i+diff) {
-				StdDraw.line(i*width/(rx.get_max()-rx.get_min()), 0, i*width/(rx.get_max()-rx.get_min()), height); 
-			}
-			
-			//////// horizontal  lines
-			int diff2 = 0;
-			if ((ry.get_max()-ry.get_min())/10 < 10) {
-				 diff2 = 1;
-			}
-			else {
-				diff2 = (int)(ry.get_max()-ry.get_min())/10; 
-			}
-			for (double i = 0; i <= height; i++) {
-				StdDraw.line(0, i*height/(ry.get_max()-ry.get_min()), width,  i*height/(ry.get_max()-ry.get_min())); 
-			}
-			
-			//////// x axis	
-			double xaxis=Math.abs(ry.get_min())*height/(ry.get_max()-ry.get_min()); //the height of x axis
-			StdDraw.setPenColor(Color.BLACK);
-			StdDraw.setPenRadius(0.005);
-			StdDraw.line(0, xaxis, width, xaxis);
-			StdDraw.setFont(new Font("TimesRoman", Font.BOLD, 12));
-			for (int i = 0; i <= width; i=i+diff) {
-				StdDraw.text(i*(width/(rx.get_max()-rx.get_min())), xaxis-10, Integer.toString((int)(i+rx.get_min())));
-			}
-			
-			//////// y axis	
-			double yaxis=Math.abs(rx.get_min())*width/(rx.get_max()-rx.get_min()); //the height of x axis
-			StdDraw.line(yaxis ,0 , yaxis, height);
-			for (int i = 0; i <= height; i=i+diff2) {
-				StdDraw.text(yaxis-10, i*(height/(ry.get_max()-ry.get_min())), Integer.toString((int)(i+ry.get_min())));
-			}
-			
 			// plot the approximation to the function
 			int R = (int) (Math.random() * 256);
 			int G = (int) (Math.random() * 256);
@@ -193,10 +184,10 @@ public class Functions_GUI implements functions {
 			Color randomColor = new Color(R, G, B);
 			StdDraw.setPenColor(randomColor);
 			for (int i = 0; i < resolution; i++) {
-				StdDraw.line(x[i]+yaxis, y[i]+xaxis, x[i+1]+yaxis, y[i+1]+xaxis);
+				StdDraw.line(x[i], y[i], x[i + 1], y[i + 1]);
 			}
+		}
 	}
-	
 
 	@Override
 	public void drawFunctions(String json_file) {

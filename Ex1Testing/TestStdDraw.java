@@ -10,10 +10,14 @@ public class TestStdDraw {
 		//test1();
 		//test2();
 		Functions_GUI f = new Functions_GUI();
-		f.add(new Polynom("0.1x^2"));
+		f.add(new Polynom("-x^3+8"));
+		f.add(new Polynom("x^2"));
+		f.add(new Polynom("x"));
+		f.add(new Polynom("x^4+10"));
+		f.add(new Polynom("x^2+3x-7"));
 		Range rx = new Range(-10, 10);
-		Range ry = new Range(-5, 15);
-		f.drawFunctions(1000, 600, rx , ry , 30);
+		Range ry = new Range(-10, 15);
+		f.drawFunctions(1000, 600, rx , ry , 200);
 
 
 	}
