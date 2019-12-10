@@ -10,14 +10,14 @@ public class ComplexFunction implements complex_function {
 		this.left = left;
 		this.right = right;
 		this.op = Operation.valueOf(op);
-		if (left instanceof Polynom) {
+		if (left instanceof Polynom || left instanceof Monom) {
 			this.left = new Polynom(left.toString());
 		}
 		if (left instanceof ComplexFunction) {
 			this.left = new ComplexFunction(((ComplexFunction) left).op.toString(), ((ComplexFunction) left).left,
 					((ComplexFunction) left).right);
 		}
-		if (right instanceof Polynom) {
+		if (right instanceof Polynom || right instanceof Monom) {
 			this.right = new Polynom(right.toString());
 		}
 		if (right instanceof ComplexFunction) {
@@ -25,9 +25,13 @@ public class ComplexFunction implements complex_function {
 					((ComplexFunction) right).right);
 		}
 	}
-
+	
+	public ComplexFunction(Operation op, function left, function right) {
+		new ComplexFunction(op.toString(), left, right);
+	}
+	
 	public ComplexFunction(function left) {
-		this.left = new Polynom(left.toString());
+		this.left = new ComplexFunction("None" , left , null);
 		this.right = null;
 		this.op = Operation.None;
 
@@ -168,8 +172,19 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public function copy() {
-		function m = new ComplexFunction(this.op.toString(), this.left, this.right);
-		return m;
+		function r;
+		function l = this.left.initFromString(this.left.toString());
+		if(this.right != null) {
+			r = this.right.initFromString(this.right.toString());
+		}
+		else {
+			r = null;
+		}
+		Operation op2 = this.op;
+		//return new ComplexFunction(this.op, this.left, this.right);
+		function res = new ComplexFunction(op2.toString(), l, r);
+		return res;
+		
 	}
 
 	@Override

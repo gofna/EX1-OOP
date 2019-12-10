@@ -3,6 +3,7 @@ package Ex1;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +11,8 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import com.google.gson.Gson;
 
 public class Functions_GUI implements functions {
 	public LinkedList<function> list = new LinkedList<function>();
@@ -191,7 +194,22 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public void drawFunctions(String json_file) {
-		// TODO Auto-generated method stub
+		Gson gson = new Gson();
+		
+		try {
+			FileReader fr = new FileReader(json_file);
+			Params p = gson.fromJson(fr, Params.class);
+			Range rx = new Range(p.Range_X[0], p.Range_X[1]);
+			Range ry = new Range(p.Range_Y[0], p.Range_Y[1]);
+			
+			drawFunctions(p.Width,p.Height,rx,ry,p.Resolution);
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 	}
 
