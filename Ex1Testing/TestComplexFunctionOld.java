@@ -15,7 +15,11 @@ public class TestComplexFunctionOld {
 		Functions_GUI f = new Functions_GUI();
 		f.add(new Polynom("3x^5"));
 		
-		test3();
+		ComplexFunction cf = new ComplexFunction("Diveid",new Polynom("x^2+3+15x"), new Polynom("7x"));
+		
+		System.out.println(cf.toString());
+				
+		//test3();
 		//test1();
 		//test2();
 //		String s = "Times(3,Plus(Times(x+3,x-2),Plus(x^2,x)))";
@@ -41,15 +45,15 @@ public class TestComplexFunctionOld {
 	public static void test3() {
 		Functions_GUI f = new Functions_GUI();
 		f.add(new Polynom("3x^2"));
-		f.add(new ComplexFunction("Plus", new Polynom("x^2"), new Polynom("7")));
+		f.add(new ComplexFunction("Plus", new Polynom("x^2-2"), new Polynom("7")));
 		System.out.println(f.list.toString());
-		try {
-			f.saveToFile("maor.txt");
-		}
-		catch(IOException e){
-			e.printStackTrace();
-			System.err.println("file Not found");
-		}
+//		try {
+//			f.saveToFile("maor.txt");
+//		}
+//		catch(IOException e){
+//			e.printStackTrace();
+//			System.err.println("file Not found");
+//		}
 		try {
 			f.initFromFile("maor.txt");
 		}

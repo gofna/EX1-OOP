@@ -14,7 +14,9 @@ class PolynomTest {
 	
 	@Test
 	void DerivativeTest() {
+	
 	Polynom p1 = new Polynom("2x+2x^2+7");
+		
 	Polynom expected = new Polynom("2+4x");
 	assertEquals(expected, p1.derivative());
 	}

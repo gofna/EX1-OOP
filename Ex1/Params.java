@@ -1,5 +1,5 @@
 package Ex1;
-// class for json file
+// class for gson file
 public class Params {
 
 	int Width;

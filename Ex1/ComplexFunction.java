@@ -7,12 +7,20 @@ public class ComplexFunction implements complex_function {
 	private Operation op;
 
 	public ComplexFunction(String op, function left, function right) {
-		this.left = left;
-		this.right = right;
-		this.op = Operation.valueOf(op);
+			try {
+				this.left = left;
+				this.right = right;
+				this.op = Operation.valueOf(op);							
+			}
+			catch(Exception e) {
+				this.op = Operation.Error;
+				System.err.println("invalid Function");
+				e.printStackTrace();
+			}
+		
 	}
 	
-	private void fix() {
+	private void fix() { // not use
 		
 		this.left = left;
 		this.right = right;
@@ -67,11 +75,11 @@ public class ComplexFunction implements complex_function {
 	
 	@Override
 	public double f(double x) {
-		return f(x, this);
+		return f(x, this); // call help function
 	}
 
-	private double f(double x, ComplexFunction fun) {
-			if (fun.op == Operation.Times) {
+	private double f(double x, ComplexFunction fun) { // help function use recursion to go in the complex 
+			if (fun.op == Operation.Times) { // ask witch operation it is 
 				return fun.left.f(x) * fun.right.f(x);
 			} else if (fun.op == Operation.Plus) {
 				return fun.left.f(x) + fun.right.f(x);
@@ -83,7 +91,7 @@ public class ComplexFunction implements complex_function {
 				return Math.max(fun.left.f(x), fun.right.f(x));
 			} else if (fun.op == Operation.Min) {
 				return Math.min(fun.left.f(x), fun.right.f(x));
-			} else {
+			} else { // operation none 
 				return fun.left.f(x);
 			}
 
@@ -98,7 +106,7 @@ public class ComplexFunction implements complex_function {
 		int rightIndex = 0;
 		int closeIndex = 0;
 		int sighn = 0;
-		int open = 0;
+		int open = 0; 
 
 		for (int i = 0; i < s.length(); i++) {
 			if (s.charAt(i) == '(') {
@@ -142,7 +150,7 @@ public class ComplexFunction implements complex_function {
 
 
 	@Override
-	public void plus(function f1) {
+	public void plus(function f1) { // the left is all the old complexfunction and the right is what we add
 		this.left = new ComplexFunction(this.op.toString(), this.left, this.right);
 		this.right = f1;
 		this.op = Operation.Plus;
@@ -231,7 +239,7 @@ public class ComplexFunction implements complex_function {
 	}
 
 	public String toString() {
-		if (this.right == null) {
+		if (this.right == null) { //to avoid from print null if there is
 			return this.left.toString();
 		}
 		if (this.left == null) {
