@@ -1,6 +1,6 @@
 EX1
 
-EX1 is a java package that contain interfaces and classes to implement a math functions and help us to calculate them.
+EX1 is a java program that contain interfaces and classes to implement a math functions and help us to calculate them.
 in addition, EX1 can write or read functions from txt file and supports displaying them in a graphical window.
 
 classes
