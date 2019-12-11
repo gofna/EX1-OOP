@@ -26,11 +26,23 @@ class ComplexFunctionTest {
 	}
 	
 	@Test
+	void testFail() {
+		try {
+			ComplexFunction cf = new ComplexFunction("Plu",new Polynom("x^2+3+15x"), new Polynom("7"));
+		}catch(Exception e) {
+			System.err.println("invalid complex function");
+			e.printStackTrace();
+		}
+
+		
+	}
+	
+	@Test
 	void testCopy() { 
 		ComplexFunction cf = new ComplexFunction("Plus",new Polynom("x^2+3+15x"), new Polynom("7"));
 		function cf2 =  cf.copy();
 		
-		assertEquals(cf, cf2, "we expected true beacase the two functions are the same");
+		assertEquals(cf, cf2, "we expected true beacase the two functions represent the same functions");
 	}
 	
 	@Test

@@ -1,10 +1,12 @@
 package Ex1Testing;
 
+
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.Iterator;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +18,7 @@ import Ex1.Polynom;
 import Ex1.Range;
 import Ex1.function;
 import Ex1.functions;
+import junit.framework.AssertionFailedError;
 /**
  * Note: minor changes (thanks to Amichai!!)
  * The use of "get" was replaced by iterator!
@@ -50,9 +53,9 @@ class Functions_GUITest {
 		data.drawFunctions(JSON_param_file);
 	}
 	private functions _data=null;
-//	@BeforeAll
-//	static void setUpBeforeClass() throws Exception {
-//	}
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+	}
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -61,11 +64,8 @@ class Functions_GUITest {
 
 	@Test
 	void testFunctions_GUI() {
-		Functions_GUI fun = new Functions_GUI();
-		fun.add(new Polynom("x^3+x^2+1.6x^7+2"));
-		fun.add(new ComplexFunction("Divid",fun.iterator().next(), new Polynom("4x+30")));
 		try {
-			fun.drawFunctions("GUI_params.txt");
+			_data.drawFunctions("GUI_params.txt");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -77,10 +77,11 @@ class Functions_GUITest {
 		void testSaveToFile() {
 			functions data = FunctionsFactory();
 			try {
-				data.saveToFile("maor.txt");
+				data.saveToFile("function_file2.txt"); // to write to the second file
 				
 			}
 			catch(IOException e){
+				fail("not found"); // fail if not found
 				e.printStackTrace();
 				System.err.println("file Not found");
 			}	
@@ -90,26 +91,38 @@ class Functions_GUITest {
 	void testInitFromFile() {
 		functions data = FunctionsFactory();
 		try {
-			data.initFromFile("maor.txt");
+			data.initFromFile("function_file.txt");
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.err.println("file Not found");
+			fail("not found"); 
 		}
 	
 		
 	}
 	//@Test
 	void testDrawFunctions() {
-		//_data.drawFunctions();
-	//	fail("Not yet implemented");
+		try {
+			_data.drawFunctions("GUI_params.txt");			
+		}
+		catch(Exception e) {
+			fail("could not read");
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	void testDrawFunctionsIntIntRangeRangeInt() {
-		_data.drawFunctions("GUI_params.txt");
-		
+		Functions_GUI f = new Functions_GUI();
+		f.add(new Polynom("x^2"));
+		f.add(new ComplexFunction("Plus", new Polynom("x+7"), new Polynom("x^4+x^3-7x")));
+		f.add(new ComplexFunction(new ComplexFunction(new Polynom("-x+10"))));
+		f.add(new Polynom("x^2-10x-4"));
+		Range rx = new Range(-5,10);
+		Range ry = new Range(-10,10);
+		//f.drawFunctions(700,1000,rx,ry,100);
 	}
 	public static functions FunctionsFactory() {
 		functions ans = new Functions_GUI();
