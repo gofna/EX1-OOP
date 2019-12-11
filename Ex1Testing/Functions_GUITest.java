@@ -1,5 +1,8 @@
 package Ex1Testing;
 
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -32,10 +35,7 @@ import Ex1.functions;
 class Functions_GUITest {
 	public static void main(String[] a) {
 		functions data = FunctionsFactory();
-	//	int w=1000, h=600, res=200;
-	//	Range rx = new Range(-10,10);
-	//	Range ry = new Range(-5,15);
-//		data.drawFunctions(w,h,rx,ry,res);
+
 		String file = "function_file.txt";
 		String file2 = "function_file2.txt";
 		try {
@@ -59,22 +59,47 @@ class Functions_GUITest {
 		_data = FunctionsFactory();
 	}
 
-	//@Test
+	@Test
 	void testFunctions_GUI() {
-	//	fail("Not yet implemented");
+		Functions_GUI fun = new Functions_GUI();
+		fun.add(new Polynom("x^3+x^2+1.6x^7+2"));
+		fun.add(new ComplexFunction("Divid",fun.iterator().next(), new Polynom("4x+30")));
+		try {
+			fun.drawFunctions("GUI_params.txt");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			//fail("file not found");
+		}
 	}
+	
+	@Test
+		void testSaveToFile() {
+			functions data = FunctionsFactory();
+			try {
+				data.saveToFile("maor.txt");
+				
+			}
+			catch(IOException e){
+				e.printStackTrace();
+				System.err.println("file Not found");
+			}	
+		}
 
-	//@Test
+	@Test
 	void testInitFromFile() {
-	//	fail("Not yet implemented");
-	}
-
-	//@Test
-	void testSaveToFile() {
+		functions data = FunctionsFactory();
+		try {
+			data.initFromFile("maor.txt");
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.err.println("file Not found");
+		}
+	
 		
-		
 	}
-
 	//@Test
 	void testDrawFunctions() {
 		//_data.drawFunctions();
@@ -84,7 +109,7 @@ class Functions_GUITest {
 	@Test
 	void testDrawFunctionsIntIntRangeRangeInt() {
 		_data.drawFunctions("GUI_params.txt");
-		//fail("Not yet implemented");
+		
 	}
 	public static functions FunctionsFactory() {
 		functions ans = new Functions_GUI();

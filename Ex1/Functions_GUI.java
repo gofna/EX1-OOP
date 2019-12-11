@@ -105,6 +105,7 @@ public class Functions_GUI implements functions {
 			System.out.println(list.toString());
 		} catch (IOException ex) {
 			System.out.print("Error reading file\n" + ex);
+			ex.printStackTrace();
 			System.exit(2);
 		}
 
@@ -119,12 +120,13 @@ public class Functions_GUI implements functions {
 
 			Iterator<function> it = this.iterator();
 			while (it.hasNext()) {
-				outs.println(it.next().toString() + "/n");
+				outs.println(it.next().toString());
 			}
 			outs.close();
 			fw.close();
 		} catch (IOException ex) {
 			System.out.print("Error writing file\n" + ex);
+			ex.printStackTrace();
 		}
 	}
 
@@ -204,9 +206,9 @@ public class Functions_GUI implements functions {
 			
 			drawFunctions(p.Width,p.Height,rx,ry,p.Resolution);
 			
-			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
+			drawFunctions(1000,600,new Range(-10, 10),new Range(-5, 15),200);//the default if not succeed
 			e.printStackTrace();
 		}
 		

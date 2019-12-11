@@ -39,7 +39,7 @@ public interface complex_function extends function{
 	 */
 	public function left();
 	/** returns the right side of the complex function - this side might not exists (aka equals null).
-	 * @return a function representing the left side of this complex funcation
+	 * @return a function representing the left side of this complex function
 	 */
 	public function right();
 	/**

@@ -15,17 +15,17 @@ public class TestComplexFunctionOld {
 		Functions_GUI f = new Functions_GUI();
 		f.add(new Polynom("3x^5"));
 		
-		//test3();
+		test3();
 		//test1();
 		//test2();
-		String s = "Times(3,Plus(Times(x+3,x-2),Plus(x^2,x)))";
-		Polynom f1 = new Polynom("x^2");
-		Polynom f2 = new Polynom("x^3");
-		ComplexFunction maor = new ComplexFunction("Plus",f1, f2 );
-		maor.mul(f1);
-		function cf5 = maor.initFromString(s);
+//		String s = "Times(3,Plus(Times(x+3,x-2),Plus(x^2,x)))";
+//		Polynom f1 = new Polynom("x^2");
+//		Polynom f2 = new Polynom("x^3");
+//		ComplexFunction maor = new ComplexFunction("Plus",f1, f2 );
+//		maor.mul(f1);
+//		function cf5 = maor.initFromString(s);
 		//System.out.println("cf maor is : " + maor.toString());
-		System.out.println( "complex init from string : "+ cf5 );
+		//System.out.println( "complex init from string : "+ cf5 );
 //		ComplexFunction gofna = new ComplexFunction("Plus",f1, maor );
 //		System.out.println("complex is " + gofna + "\n");
 //		gofna.mul(f1);
@@ -38,10 +38,9 @@ public class TestComplexFunctionOld {
 //		System.out.println(gofna.f(2));
 		
 	}
-	
 	public static void test3() {
 		Functions_GUI f = new Functions_GUI();
-		f.add(new Polynom("3x^5"));
+		f.add(new Polynom("3x^2"));
 		f.add(new ComplexFunction("Plus", new Polynom("x^2"), new Polynom("7")));
 		System.out.println(f.list.toString());
 		try {
@@ -53,7 +52,8 @@ public class TestComplexFunctionOld {
 		}
 		try {
 			f.initFromFile("maor.txt");
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.err.println("file Not found");

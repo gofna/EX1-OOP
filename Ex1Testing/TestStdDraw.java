@@ -1,5 +1,6 @@
 package Ex1Testing;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import Ex1.ComplexFunction;
@@ -66,7 +67,7 @@ public class TestStdDraw {
 		ComplexFunction cf4 = new ComplexFunction("Divid", new Polynom("x+1"),cf3);
 		cf4.plus(new Monom("2"));
 		f.add(cf.copy());
-		f.add(cf4.copy());
+		f.add(cf4);
 		cf.div(p1);
 		f.add(cf.copy());
 		String s = cf.toString();
@@ -83,11 +84,25 @@ public class TestStdDraw {
 			max.max(f1);
 			min.min(f1);
 		}
+		function cf7 = cf4.copy(); 
 		f.add(max);
 		f.add(min);	
 		f.drawFunctions("GUI_params.txt");
+		System.out.println(cf7.toString());
 		System.out.println(cf4.toString());
 		System.out.println(cf4.copy().toString());
+		System.out.println("calc cf4 " + cf4.f(4.000001));
+		System.out.println("calc cf7 " + cf7.f(4.000001));
+		
+		System.out.println(f.list.toString());
+		try {
+			f.saveToFile("maor.txt");
+			
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			System.err.println("file Not found");
+		}
 	}
 
 	public static void test1() {
