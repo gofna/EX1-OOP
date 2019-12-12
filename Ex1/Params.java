@@ -1,5 +1,8 @@
 package Ex1;
-// class for json file
+/**
+ * class to get parameters from gson file
+ * @author maor
+ */
 public class Params {
 
 	int Width;

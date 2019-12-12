@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import Ex1.Monom;
@@ -14,7 +15,9 @@ class PolynomTest {
 	
 	@Test
 	void DerivativeTest() {
+	
 	Polynom p1 = new Polynom("2x+2x^2+7");
+		
 	Polynom expected = new Polynom("2+4x");
 	assertEquals(expected, p1.derivative());
 	}
@@ -93,13 +96,13 @@ class PolynomTest {
 		assertEquals(expected, actual);
 	}
 	
+	@Test
+	void testPolynomException() {
+		
+		 Assertions.assertThrows(RuntimeException.class, () -> {
+			 new Polynom("4tx^3+50");
+			  }); 
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

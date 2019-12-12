@@ -1,5 +1,8 @@
 package Ex1;
 
+/** This class create a complex function of type y=g(f1(x), f2(x)), where both f1, f2 are functions (or complex functions), 
+ * y and x are real numbers and g is an operation: plus, mul, div, max, min, comp (f1(f2(x))).
+**/
 public class ComplexFunction implements complex_function {
 
 	private function left;
@@ -7,32 +10,27 @@ public class ComplexFunction implements complex_function {
 	private Operation op;
 
 	public ComplexFunction(String op, function left, function right) {
-		this.left = left;
-		this.right = right;
-		this.op = Operation.valueOf(op);
+			try {
+				this.left = left;
+				this.right = right;
+				this.op = Operation.valueOf(op);							
+			}
+			catch(Exception e) {
+				this.op = Operation.Error;
+				throw new RuntimeException("invalid complex function");
+
+			}
+		
 	}
 	
-	private void fix() {
-		
-		this.left = left;
-		this.right = right;
-		this.op = op;
-		if (left instanceof Polynom || left instanceof Monom) {
-			this.left = new Polynom(left.toString());
-		}
-		if (left instanceof ComplexFunction) {
-			this.left = new ComplexFunction(((ComplexFunction) left).op.toString(), ((ComplexFunction) left).left,
-					((ComplexFunction) left).right);
-		}
-		if (right instanceof Polynom || right instanceof Monom) {
-			this.right = new Polynom(right.toString());
-		}
-		if (right instanceof ComplexFunction) {
-			this.right = new ComplexFunction(((ComplexFunction) right).op.toString(), ((ComplexFunction) right).left,
-					((ComplexFunction) right).right);
-		}
-		
-		
+	public ComplexFunction(function left) { // consturctor 
+		this.left =left;
+		this.right = null;
+		this.op = Operation.None;
+	}
+	
+	public ComplexFunction(Operation op, function left, function right) { // constructor 
+		new ComplexFunction(op.toString(), left, right);
 	}
 	
 	@Override
@@ -48,30 +46,16 @@ public class ComplexFunction implements complex_function {
 		Operation op2 = this.op;
 		//return new ComplexFunction(this.op, this.left, this.right);
 		function res = new ComplexFunction(op2.toString(), l, r);
-		return res;
-		
-	}
-	
-	
-	
-	public ComplexFunction(Operation op, function left, function right) {
-		new ComplexFunction(op.toString(), left, right);
-	}
-	
-	public ComplexFunction(function left) {
-		this.left =left;
-		this.right = null;
-		this.op = Operation.None;
-
+		return res;	
 	}
 	
 	@Override
 	public double f(double x) {
-		return f(x, this);
+		return f(x, this); // call help function
 	}
 
-	private double f(double x, ComplexFunction fun) {
-			if (fun.op == Operation.Times) {
+	private double f(double x, ComplexFunction fun) { // help function use recursion to go in the complex 
+			if (fun.op == Operation.Times) { // ask witch operation it is 
 				return fun.left.f(x) * fun.right.f(x);
 			} else if (fun.op == Operation.Plus) {
 				return fun.left.f(x) + fun.right.f(x);
@@ -83,7 +67,7 @@ public class ComplexFunction implements complex_function {
 				return Math.max(fun.left.f(x), fun.right.f(x));
 			} else if (fun.op == Operation.Min) {
 				return Math.min(fun.left.f(x), fun.right.f(x));
-			} else {
+			} else { // operation none 
 				return fun.left.f(x);
 			}
 
@@ -98,7 +82,7 @@ public class ComplexFunction implements complex_function {
 		int rightIndex = 0;
 		int closeIndex = 0;
 		int sighn = 0;
-		int open = 0;
+		int open = 0; 
 
 		for (int i = 0; i < s.length(); i++) {
 			if (s.charAt(i) == '(') {
@@ -142,7 +126,7 @@ public class ComplexFunction implements complex_function {
 
 
 	@Override
-	public void plus(function f1) {
+	public void plus(function f1) { // the left is all the old complexfunction and the right is what we add
 		this.left = new ComplexFunction(this.op.toString(), this.left, this.right);
 		this.right = f1;
 		this.op = Operation.Plus;
@@ -205,9 +189,9 @@ public class ComplexFunction implements complex_function {
 		double[] yThis = new double[101];
 		int x = -50; // the value of x for f(x).
 		for (int i = 0; i < 101; i++) {
-			yObj[i] = cf.f(x);
+			yObj[i] = cf.f(x); // put the results in arrays  start from -50 to 50
 			yThis[i] = this.f(x);
-			if (yObj[i] != yThis[i]) {
+			if (yObj[i] != yThis[i]) {  // compare between the functions 
 				return false;
 			}
 			x++;
@@ -231,7 +215,7 @@ public class ComplexFunction implements complex_function {
 	}
 
 	public String toString() {
-		if (this.right == null) {
+		if (this.right == null) { //to avoid from print null if there is
 			return this.left.toString();
 		}
 		if (this.left == null) {

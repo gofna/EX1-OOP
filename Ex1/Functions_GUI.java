@@ -14,12 +14,20 @@ import java.util.LinkedList;
 
 import com.google.gson.Gson;
 
+/*
+ * Functions_GUI  implements the interface "functions" ,
+ * represents a collection of mathematical functions
+ * the class supports writing or reading collection of functions to/from txt file and supports displaying them
+ * in a graphical window by using StdDraw class.
+ */
+
+
 public class Functions_GUI implements functions {
-	public LinkedList<function> list = new LinkedList<function>();
+	public LinkedList<function> list = new LinkedList<function>(); 
 
 	@Override
 	public boolean add(function arg0) {
-		return this.list.add(arg0);
+		return this.list.add(arg0); // use the add function with linkedlist add function
 	}
 
 	@Override
@@ -30,7 +38,6 @@ public class Functions_GUI implements functions {
 	@Override
 	public void clear() {
 		this.list.clear();
-
 	}
 
 	@Override
@@ -91,14 +98,13 @@ public class Functions_GUI implements functions {
 		try {
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
-			String str;
-			str = br.readLine();
+			String str = br.readLine();
 			function f1 = new Polynom("0");
 			function f = new ComplexFunction(f1);
 			while (str != null) {
-				f = f.initFromString(str);
-				list.add(f);
-				str = br.readLine();
+				f = f.initFromString(str); 
+				list.add(f);               //add the functions we read to the list
+				str = br.readLine();       // the string is the new line
 			}
 			br.close();
 			fr.close();
@@ -112,14 +118,14 @@ public class Functions_GUI implements functions {
 	}
 
 	@Override
-	public void saveToFile(String file) throws IOException { // need to fix
+	public void saveToFile(String file) throws IOException {
 
 		try {
 			FileWriter fw = new FileWriter(file);
 			PrintWriter outs = new PrintWriter(fw);
 
 			Iterator<function> it = this.iterator();
-			while (it.hasNext()) {
+			while (it.hasNext()) { // over all the list and put in the file 
 				outs.println(it.next().toString());
 			}
 			outs.close();
@@ -132,16 +138,16 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {		
-		StdDraw.setCanvasSize(width, height);
+		StdDraw.setCanvasSize(width, height); // the size of the window
 		double[] x = new double[resolution + 1];
 		double[] y = new double[resolution + 1];
 		// rescale the coordinate system
-		StdDraw.setXscale(rx.get_min(), rx.get_max());
-		StdDraw.setYscale(ry.get_min(), ry.get_max());
+		StdDraw.setXscale(rx.get_min(), rx.get_max()); // x axis size
+		StdDraw.setYscale(ry.get_min(), ry.get_max()); // y axis size
 
 		//////// vertical lines
 		int diff = 0;
-		if (rx.get_max() / 10 < 10) {
+		if (rx.get_max() / 10 < 10) { // how many to jump with the number in the x axis
 			diff = 1;
 		} else {
 			diff = (int) rx.get_max() / 10;
@@ -153,7 +159,7 @@ public class Functions_GUI implements functions {
 
 		//////// horizontal lines
 		int diff2 = 0;
-		if ((ry.get_max() - ry.get_min()) / 10 < 10) {
+		if ((ry.get_max() - ry.get_min()) / 10 < 10) { // how many to jump with the number in the y axis
 			diff2 = 1;
 		} else {
 			diff2 = (int) (ry.get_max() - ry.get_min()) / 10;
@@ -176,18 +182,21 @@ public class Functions_GUI implements functions {
 		for (int i = (int) ry.get_min(); i <= ry.get_max(); i = i + diff2) {
 			StdDraw.text(0 - 0.3, i, Integer.toString((int) (i)));
 		}
-
+		
+		//save the coordinate in array (use with function f) to determine where to draw in the canvas 
 		for (int j = 0; j < list.size(); j++) {
 			for (int i = 0; i <= resolution; i++) {
-				x[i] = rx.get_min() + i * ((rx.get_max() - rx.get_min()) / resolution);
+				x[i] = rx.get_min() + i * ((rx.get_max() - rx.get_min()) / resolution);//Divide with resolution
 				y[i] = this.list.get(j).f(x[i]);
 			}
-			// plot the approximation to the function
+			//random color
 			int R = (int) (Math.random() * 256);
 			int G = (int) (Math.random() * 256);
 			int B = (int) (Math.random() * 256);
 			Color randomColor = new Color(R, G, B);
 			StdDraw.setPenColor(randomColor);
+			
+			// plot the approximation to the function
 			for (int i = 0; i < resolution; i++) {
 				StdDraw.line(x[i], y[i], x[i + 1], y[i + 1]);
 			}
@@ -196,23 +205,21 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public void drawFunctions(String json_file) {
-		Gson gson = new Gson();
+		Gson gson = new Gson(); //open gson obj
 		
 		try {
-			FileReader fr = new FileReader(json_file);
-			Params p = gson.fromJson(fr, Params.class);
-			Range rx = new Range(p.Range_X[0], p.Range_X[1]);
-			Range ry = new Range(p.Range_Y[0], p.Range_Y[1]);
+			FileReader fr = new FileReader(json_file); //read from the file
+			Params p = gson.fromJson(fr, Params.class); 
+			Range rx = new Range(p.Range_X[0], p.Range_X[1]); // open new Range with the file parameters
+			Range ry = new Range(p.Range_Y[0], p.Range_Y[1]); // open new Range with the file parameters
 			
 			drawFunctions(p.Width,p.Height,rx,ry,p.Resolution);
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			drawFunctions(1000,600,new Range(-10, 10),new Range(-5, 15),200);//the default if not succeed
+			drawFunctions(1000,600,new Range(-10, 10),new Range(-5, 15),200);//the default if not succeed to read from gson
 			e.printStackTrace();
 		}
-		
-
 	}
 
 }

@@ -2,6 +2,7 @@ package Ex1Testing;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,13 +16,21 @@ class MonomTest {
 		System.out.println("@Before  Each test : ");
 	}
 	
-//	@Test ???????????????(fail)
-//	void makeMonomException() {
-//		Monom m1 = new Monom("4tx^3");
-//		Monom m2 = new Monom("2x^3.2");
-//		Monom m3 = new Monom("wx^3");
-//		//fail("we dont accept Monom in this shape");
-//	}
+	@Test
+	void testMonomException() {
+		
+		 Assertions.assertThrows(RuntimeException.class, () -> {
+			 new Monom("4tx^3");
+			  }); 
+		 
+		 Assertions.assertThrows(RuntimeException.class, () -> {
+			 new Monom("x^3 +2"); //space is not valid
+			  }); 
+		 
+		 Assertions.assertThrows(RuntimeException.class, () -> {
+			 new Monom("2x^3.2");
+			  }); 
+	}
 
 	@Test
 	void equal() {
@@ -30,15 +39,11 @@ class MonomTest {
 		assertEquals(m1,m2, "test if the two Monom are equals"); // check if equals
 	}
 	@Test
-	void equalException() {
+	void NotEquel() {
 		Monom m1 = new Monom("x^3");
 		Monom m2 = new Monom("4x^3");
-		try {
-			//assertEquals(m1, m2); // will fail the test 
-			//fail("should throw exception");
-		}
-		catch (Exception e) {	
-		}
+
+			assertNotEquals(m1, m2); 
 	}
 	@Test
 	void testIsZero() {
@@ -68,20 +73,14 @@ class MonomTest {
 		assertEquals(m1,expected , "test add with two Monoms");
 	}
 	
-//	@Test ????
-//	void testAddException() {
-//		
-//		try {
-//			Monom m1 = new Monom("4x");
-//			Monom m2 = new Monom("2x");
-//			Monom expected = new Monom("9x"); // the Monom we should expect (must have the same power)
-//			m1.add(m2);
-//			assertEquals(expected,m1 , "test add with two Monoms"); // will fail the test
-//			fail("the add do not throw exception by add two monoms with different power");
-//		}
-//		catch (Exception e){	
-//		}
-//	}
+	@Test
+	void testAddException() {
+			Monom m1 = new Monom("4x^2");
+			Monom m2 = new Monom("2x");
+			 Assertions.assertThrows(RuntimeException.class, () -> {
+				 m1.add(m2);
+				  }); 
+	}
 	
 	@Test
 	void testDerivative() {
