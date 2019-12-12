@@ -8,7 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import Ex1.Monom;
 
-
+/**
+ * partial JUnit test for Monom class.
+ * 
+ *  @author Gofna and Maor
+ */
 class MonomTest {
 	
 	@BeforeEach

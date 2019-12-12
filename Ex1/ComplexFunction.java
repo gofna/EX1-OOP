@@ -2,6 +2,8 @@ package Ex1;
 
 /** This class create a complex function of type y=g(f1(x), f2(x)), where both f1, f2 are functions (or complex functions), 
  * y and x are real numbers and g is an operation: plus, mul, div, max, min, comp (f1(f2(x))).
+ * 
+ * @author Gofna and Maor
 **/
 public class ComplexFunction implements complex_function {
 
@@ -14,15 +16,13 @@ public class ComplexFunction implements complex_function {
 				this.left = left;
 				this.right = right;
 				this.op = Operation.valueOf(op);							
-			}
-			catch(Exception e) {
+			}catch(Exception e) {
 				this.op = Operation.Error;
 				throw new RuntimeException("invalid complex function");
-
 			}
-		
 	}
 	
+
 	public ComplexFunction(function left) { // consturctor 
 		this.left =left;
 		this.right = null;
@@ -75,14 +75,14 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public function initFromString(String s) {
-		String temp = "";
-		String operation = "";
-		String left = "";
-		int leftIndex = 0;
-		int rightIndex = 0;
-		int closeIndex = 0;
-		int sighn = 0;
-		int open = 0; 
+		String temp = ""; // to catch the operation
+		String operation = ""; 
+		String left = ""; //to catch the left function
+		int leftIndex = 0; //the index the left start 
+		int rightIndex = 0; //the index the right start
+		int closeIndex = 0; //the index the complex end
+		int sighn = 0; // count ')' to find the right side of the complex function
+		int open = 0; // count '('
 
 		for (int i = 0; i < s.length(); i++) {
 			if (s.charAt(i) == '(') {
@@ -113,20 +113,20 @@ public class ComplexFunction implements complex_function {
 			}
 		}
 
-		if (operation.equals("")) {
+		if (operation.equals("")) { // all the function is a Polynom type
 			left = temp;
 			Polynom l = new Polynom(left);
 			return new ComplexFunction(l);
 		}
 
-		function ans = new ComplexFunction(operation, initFromString(s.substring(leftIndex, rightIndex - 1)),
+		function ans = new ComplexFunction(operation, initFromString(s.substring(leftIndex, rightIndex - 1)), //recursive 
 				initFromString(s.substring(rightIndex, closeIndex)));
 		return ans;
 	}
 
 
 	@Override
-	public void plus(function f1) { // the left is all the old complexfunction and the right is what we add
+	public void plus(function f1) { // the left is this complex function and the right is what we add
 		this.left = new ComplexFunction(this.op.toString(), this.left, this.right);
 		this.right = f1;
 		this.op = Operation.Plus;
@@ -174,7 +174,7 @@ public class ComplexFunction implements complex_function {
 
 	/**
 	 * the function can not do a perfect compare. the function check the values of x
-	 * from -50 to 50 only, because there is no way to check infinity number of
+	 * from -50 to 50 only, and return true if the values y=f(x) is equals in the both functions. because there is no way to check infinity number of
 	 * values.
 	 * 
 	 * @param obj the function to check with this Complex Function.

@@ -1,14 +1,18 @@
 package Ex1Testing;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import Ex1.ComplexFunction;
 import Ex1.Polynom;
 import Ex1.function;
 
+/**
+ * partial JUnit test for ComplexFunction class.
+ * 
+ * @author Gofna and Maor
+ *
+ */
 class ComplexFunctionTest {
 
 	@Test
@@ -27,7 +31,7 @@ class ComplexFunctionTest {
 	}
 	
 	@Test
-	void testComplexFunctionException() {	
+	void testComplexFunctionException() {
 		 Assertions.assertThrows(RuntimeException.class, () -> {
 			 new ComplexFunction("Plu",new Polynom("x^2+3+15x"), new Polynom("7")); //invalid operation
 			  }); 
@@ -47,8 +51,6 @@ class ComplexFunctionTest {
 		ComplexFunction cf2 = new ComplexFunction(new Polynom("5+7.5x-x^2"));
 		
 		assertEquals(cf2, cf.initFromString("5+7.5x-x^2"));
-	
-	
 	}
 
 	@Test

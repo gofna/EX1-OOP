@@ -3,14 +3,17 @@ package Ex1Testing;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import Ex1.Monom;
 import Ex1.Polynom;
 import Ex1.function;
 
+/**
+ * partial JUnit test for Polynom class.
+ * 
+ *  @author Gofna and Maor
+ */
 class PolynomTest {
 	
 	@Test

@@ -49,7 +49,7 @@ class Functions_GUITest {
 		}
 		catch(Exception e) {e.printStackTrace();}
 		
-		String JSON_param_file = "GUI_params.txt";
+		String JSON_param_file = "GUI_params.txt"; 
 		data.drawFunctions(JSON_param_file);
 	}
 	private functions _data=null;
@@ -105,7 +105,7 @@ class Functions_GUITest {
 	//@Test
 	void testDrawFunctions() {
 		try {
-			_data.drawFunctions("GUI_params.txt");			
+			_data.drawFunctions("GUI_params.txt");	//use the name of the file in the src folder.		
 		}
 		catch(Exception e) {
 			fail("could not read");
