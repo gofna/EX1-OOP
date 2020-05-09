@@ -1,14 +1,21 @@
-MyMath
+In our project there are 4 main departments, all of the departments have the same interface named function. Also, more methods are applied to each department. the 4 main departments:
 
-MyMath is a java package that contain interfaces and classes to implement a math function and help us to calculate them.
+Monom: A mathematical class that represents a monom so that each monom is built from a coefficient, variable and power which is not negative.
 
-classes
+For example: ax^b, Where a is the coefficient b is the power and x is the variable.
 
-Monom classthat implement the interface "function" and represents a simple Monom of shape ax^b, where 'a' is a real number and 'b' is a positive integer. any different shape (such as: a*x^b , ax^^, axx^b, negative or decimal b) will cause to exception. The class implements function and support simple operations as: construction, value at x, derivative, add and multiply.
+Polynom: Polynom is constructed of several monoms, In our implement we decided that the polynomial would be a list of monoms.
 
-Polynom class that implement the interface "Polynom_able" and represents a Polynom with arrayList � each monom in different cell, arranged by the powers from the biggest to the smallest. We use the arrayList's method "sort" and the Monom_comperator's method "compare" to sort the Polynom. The class support the functions- add, multiply, substract , equals functionality, it also support the following:
+For example: ax^b-cx^d+ex^f, Where a,c,e is the coefficients b,d,f is the powers and x is the variable.
 
-Riemann's Integral
-Finding a numerical value between two values (currently support root only f(x)=0).
-Derivative
-Monom_comperator class contain a compare function between the two powers of the monoms. We use it to sort the polynom (in the Polynom class) by the power- from the biggest to the smallest in the arrayList.
+*Complex Function:* Complex function built from an arithmetic operator and two functions where each function can be a polynom or monom or a Complex function.
+
+For example: plus(mul(x^2,2x+100),100)
+
+GUI function:
+
+This class represents a collection of functions that it can save in a file or read from a file or draw as in the image.
+
+For more information read Wiki.
+
+![פונקציות גרפיות](https://user-images.githubusercontent.com/57867811/81482166-b4ab3180-923d-11ea-8f29-ffe1de8684f3.jpeg)
