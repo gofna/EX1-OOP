@@ -1,4 +1,4 @@
-**Graphing calculator**
+**Graphing calculator-**
 
 
 In our project there are 4 main departments, all of the departments have the same interface named function. Also, more methods are applied to each department. the 4 main departments:
