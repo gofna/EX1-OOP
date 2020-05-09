@@ -1,3 +1,6 @@
+**Graphing calculator**
+
+
 In our project there are 4 main departments, all of the departments have the same interface named function. Also, more methods are applied to each department. the 4 main departments:
 
 **Monom:** A mathematical class that represents a monom so that each monom is built from a coefficient, variable and power which is not negative.
