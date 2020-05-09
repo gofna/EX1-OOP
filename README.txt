@@ -18,4 +18,4 @@ This class represents a collection of functions that it can save in a file or re
 
 For more information read Wiki.
 
-![פונקציות גרפיות](https://user-images.githubusercontent.com/57867811/81482166-b4ab3180-923d-11ea-8f29-ffe1de8684f3.jpeg)
+![image](https://user-images.githubusercontent.com/57867811/81482279-85e18b00-923e-11ea-811a-44b86d1eeb2f.jpeg)
